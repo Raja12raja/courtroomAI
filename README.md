@@ -2,7 +2,7 @@
 
 An AI-powered courtroom system built on Databricks that enables interactive legal case analysis through multi-agent debate, RAG-based evidence retrieval, and credibility scoring across multiple Indian languages.
 
-![Landing Page](https://raw.githubusercontent.com/Raja12raja/courtroomAI/refs/heads/main/landing.png)
+![Landing Page](https://raw.githubusercontent.com/Raja12raja/courtroomAI/refs/heads/main/Screenshot%202026-04-18%20154849.png)
 
 ## 📊 Architecture Diagram
 
