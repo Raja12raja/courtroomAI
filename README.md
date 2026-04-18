@@ -92,7 +92,7 @@ The system uses a 4-stage Databricks Jobs pipeline for document processing and e
 └─────────────────────────────────────────────────────────────────────┘
 ```
 
-![Pipeline Architecture](/Workspace/Users/ee220002058@iiti.ac.in/databricks_apps/courtroomai_2026_04_17-13_53/streamlit-hello-world-app/2.jpeg)
+![Pipeline Architecture](https://raw.githubusercontent.com/Raja12raja/courtroomAI/refs/heads/main/2.jpeg)
 
 
 ## 🎯 Features
