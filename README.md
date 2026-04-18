@@ -57,7 +57,7 @@ The system uses a 4-stage Databricks Jobs pipeline for document processing and e
 │  │           RAG (Retrieval-Augmented Generation)                │  │
 │  │                                                               │  │
 │  │  ┌──────────────┐    ┌──────────────┐    ┌──────────────┐  │  │
-│  │  │   Document   │───▶│    FAISS     │───▶│   Context    │  │  │
+│  │  │   Document   │───▶️│    FAISS     │───▶️│   Context    │  │  │
 │  │  │   Processor  │    │ Vector Index │    │  Retrieval   │  │  │
 │  │  │              │    │              │    │              │  │  │
 │  │  │ • PDF Parse  │    │ • Embeddings │    │ • Top-K      │  │  │
@@ -368,4 +368,3 @@ are no witnesses, but Suresh has been paying property tax for 13 years.
 * OCR: **Tesseract** (Google)
 
 ---
-
