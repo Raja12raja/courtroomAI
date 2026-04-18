@@ -255,14 +255,70 @@ LANGUAGE_NAMES = {
     "ml": "മലയാളം (Malayalam)"
 }
 
+
+def normalize_language(language: str = "en") -> str:
+    """Normalize language input from UI values/names/locales to supported codes."""
+    if not language:
+        return "en"
+
+    lang = str(language).strip().lower()
+
+    alias_map = {
+        "en": "en",
+        "english": "en",
+        "hi": "hi",
+        "hi-in": "hi",
+        "hindi": "hi",
+        "हिंदी": "hi",
+        "ta": "ta",
+        "ta-in": "ta",
+        "tamil": "ta",
+        "தமிழ்": "ta",
+        "te": "te",
+        "te-in": "te",
+        "telugu": "te",
+        "తెలుగు": "te",
+        "bn": "bn",
+        "bn-in": "bn",
+        "bengali": "bn",
+        "বাংলা": "bn",
+        "mr": "mr",
+        "mr-in": "mr",
+        "marathi": "mr",
+        "मराठी": "mr",
+        "gu": "gu",
+        "gu-in": "gu",
+        "gujarati": "gu",
+        "ગુજરાતી": "gu",
+        "kn": "kn",
+        "kn-in": "kn",
+        "kannada": "kn",
+        "ಕನ್ನಡ": "kn",
+        "ml": "ml",
+        "ml-in": "ml",
+        "malayalam": "ml",
+        "മലയാളം": "ml"
+    }
+
+    # Direct alias match first
+    if lang in alias_map:
+        return alias_map[lang]
+
+    # Support locale-like inputs such as "hi_IN" / "hi-IN"
+    base = lang.split("-")[0].split("_")[0]
+    if base in TRANSLATIONS:
+        return base
+
+    return "en"
+
 def get_translation(key: str, language: str = "en") -> str:
     """Get translated text for a given key and language."""
-    if language not in TRANSLATIONS:
-        language = "en"
+    language = normalize_language(language)
     return TRANSLATIONS[language].get(key, TRANSLATIONS["en"].get(key, key))
 
 def get_language_instruction(language: str) -> str:
     """Get instruction for LLM to respond in specified language."""
+    language = normalize_language(language)
     if language == "en":
         return ""
     
@@ -616,6 +672,17 @@ def get_client():
 def ask_llm(prompt: str, system: str = "", language: str = "en") -> str:
     """Call the LLM with an optional system prompt and language support."""
     client = get_client()
+    language = normalize_language(language)
+    lang_instruction = get_language_instruction(language)
+
+    # Enforce response language centrally so callers don't need to duplicate this.
+    if lang_instruction:
+        if system:
+            if lang_instruction not in system:
+                system = f"{system}\n{lang_instruction}"
+        else:
+            prompt = f"{prompt}\n{lang_instruction}"
+
     messages = []
     if system:
         messages.append({"role": "system", "content": system})
